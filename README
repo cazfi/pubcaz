@@ -1,0 +1,96 @@
+
+* NOTICE *
+==========
+
+pubcaz in this repository is not yet functional. I'm only gradually adding parts as I get them
+cleaned enough to make them public.
+
+
+Secure setup
+============
+
+It's highly recommended that you run freeciv server by system user designed for just that purpose,
+and who has no rights beyond the ones needed the task in the system. Rest of the documentation
+expects 'freeciv' to be such an system user, and to have home directory /home/freeciv where
+pubcaz is as /home/freeciv/pubcaz, but the pubcaz does not rely on these settings - feel free to
+setup the user as you wish. User freeciv should not have even rights to build the server - only to
+run one built by more privileged user. Both the privileged user and freeciv should belong to the
+same group (e.g. freeciv) that is used to control what files owned by the privileged user freeciv
+is allowed to read and execute.
+Make sure privileged user has access to /home/freeciv, and make him/her owner of the
+/home/freeciv/pubcaz and all its contents. Group owning the directory and its contents should
+be aforementioned freeciv. Group should have write permission only to pubcaz/workdirs and
+pubcaz/portflags, and read permissions only to select files and directories.
+
+
+General Functionality and Directory Structure
+=============================================
+
+1. Upstream sources should be downloaded to subdirectory of src/. Name of the subdirectory
+   is also known as "source version", so name it accordingly. freeciv -user needs no read permissions
+   to this directory.
+2. Patch files to apply to the upstream sources live in patches/<build_version>. I've found it
+   good practice to have actual patches, that probably apply to new build versions too when updating,
+   in one directory (like "patches/S2_5/") and make symbolic links from build specific directories
+   to those. Patches are applied in alphabetical order, which is easiest to control by giving the
+   patch files two-number prefix like "01_fundamental.patch", "50_midclass.patch", "99_im_last.patch"
+   freeciv -user needs no read permissions to this directory.
+3. Directory patched/<build_version> will have patched sources. One runs ./patch_source.sh to create
+   it from the given upstream sources and patches. Copy of the upstream sources to patched sources is
+   filtered to minimize disk space usage on the server - only things needed to build and run the server
+   end up to patched sources. freeciv -user usually needs read permissions to data directories of the
+   patched sources.
+4. Directory builds/<build_version> will contain actual server builds. One runs ./build_server.sh to
+   build the server from patched sources. freeciv -user needs read permissions to the directory,
+   and execution permissions for the fcser -script and freeciv-server -binary of each build.
+5. Directory config/ should contain two files. One is configuration files "setup" for pubcaz, and
+   second one is configuration file "fc_auth.conf" for freeciv user authentication to use.
+   Contents of these files is explained later. freeciv -user needs to have permissions to read
+   both configuration files.
+6. Directory portflags/ will contain temporary files telling in which ports servers are currently
+   running. Once server on a given port exits, next cron run will start new one there. freeciv -user
+   needs both read and write permissions to this directory
+7. Directory workdirs/ contain game specific directories along a couple of other files modified
+   by running the server. freeciv -user needs both read and write permissions to this directory, and
+   to files there.
+
+
+Configuration files
+===================
+
+1. config/fc_auth.conf
+----------------------
+
+pubcaz assumes sqlite3 -based authentication database to be used. As freeciv -user needs write
+permissions for the database, we recommend locating it to workdirs/ where freeciv has
+sufficient rights in any case. Here's example of the config file contents:
+
+[fcdb]
+backend="sqlite"
+database="/home/freeciv/pubcaz/workdirs/auth.sqlite"
+
+
+2. config/setup
+---------------
+
+Following values should be set
+
+SERVERDESC - short description of the server setup, its name
+
+One may set following values
+
+WAIT_RAND_MAX - When running multiple servers, it's possible that sometimes several of them
+                exit between same two cron runs. To minimize problems caused by starting two
+                servers at the exactly same moment when cron runs, there's randomized delay
+                in server start. This variable gives max seconds this randomized part of the
+                delay lasts (greater the value, less likely it's of two servers getting the
+                same value, but it also lasts longer on average). Default is 40 seconds.
+CONST_WAIT      This is constant part of the server start delay. If you setup server launching
+                so that servers launched at the same second get different CONST_WAIT, you
+                don't need WAIT_RAND_MAX at all, but can have CONST_WAIT in just seconds.
+
+Example contents:
+
+SERVERDESC="Cazfi's server"
+WAIT_RAND_MAX=10
+CONST_WAIT=5
