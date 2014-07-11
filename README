@@ -53,6 +53,11 @@ General Functionality and Directory Structure
 7. Directory workdirs/ contain game specific directories along a couple of other files modified
    by running the server. freeciv -user needs both read and write permissions to this directory, and
    to files there.
+8. Directory rulesets/<build_version> contains information specific to the rulesets that the server
+   may run. For each supported ruleset it must have <ruleset>.serv for the freeciv server to read
+   for setting the ruleset to use, and <ruleset>.msg that contains text to be shown to clients
+   when they connect. Typically this text should tell if there's something special about using this
+   server, and any requirements for the client end ("Requires tileset x")
 
 
 Configuration files
