@@ -99,3 +99,10 @@ Example contents:
 SERVERDESC="Cazfi's server"
 WAIT_RAND_MAX=10
 CONST_WAIT=5
+
+
+Running in the background from a cron job
+=========================================
+
+Script cron_run.sh is meant to be launched regularly (like every two minutes) from cron.
+It checks if the server in the specified port is still running, and if not, starts a new one.
