@@ -159,11 +159,11 @@ fi
 sleep $RAND_WAIT
 
 if ! test -f $WDH/id.txt ; then
-  declare -i GAMEID=0
+  GAMEID=0
 else
-  declare -i GAMEID=$(cat $WDH/id.txt)
+  GAMEID=$(cat $WDH/id.txt)
 fi
-GAMEID=$GAMEID+1
+((GAMEID=GAMEID+1))
 
 echo -n "$GAMEID" > $WDH/id.txt
 
