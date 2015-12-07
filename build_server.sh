@@ -8,6 +8,14 @@ fi
 SRCVERSION="$1"
 TGTVERSION="$2"
 
+if test "x$MAKE" = "x" ; then
+    if which gmake > /dev/null ; then
+        MAKE=gmake
+    else
+        MAKE=make
+    fi
+fi
+
 if test "x$TGTVERSION" = "x" ; then
   TGTVERSION="$SRCVERSION"
 fi
@@ -40,11 +48,11 @@ CONFOPTIONS="--enable-fcdb=sqlite3 --without-readline --disable-nls --disable-cl
 
   if ! $SRCDIR/autogen.sh --sysconfdir=$(pwd)/etc --disable-client $CONFOPTIONS ||
      ! ( cd $SRCDIR/common && ./generate_packets.py ) ||
-     ! ( ! test -d dependencies || make -C dependencies ) ||
-     ! make -C utility      ||
-     ! make -C common       ||
-     ! make -C ai           ||
-     ! make -C server
+     ! ( ! test -d dependencies || $MAKE -C dependencies ) ||
+     ! $MAKE -C utility      ||
+     ! $MAKE -C common       ||
+     ! $MAKE -C ai           ||
+     ! $MAKE -C server
   then
     echo "Server $TGTVERSION build failed" >&2
     exit 1
