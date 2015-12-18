@@ -132,7 +132,7 @@ if test "x$4" = "xrand" ; then
     echo "No ruleset $RULESET available"
     exit 1
   fi
-elif test "x$4" != "x" ; then
+elif test "x$4" != "x" && test "x$4" != "xdefault" ; then
   if ! test -f rulesets/$VERSION/$4.serv ; then
     echo "No ruleset $4 available"
     exit 1
