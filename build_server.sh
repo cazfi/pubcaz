@@ -59,7 +59,7 @@ CONFOPTIONS="--enable-fcdb=sqlite3 --without-readline --disable-nls --disable-cl
   fi
 
   if ! mkdir -p etc/freeciv ||
-     ! cp $SRCDIR/data/database.lua etc/freeciv/
+     ! cp $SRCDIR/lua/database.lua etc/freeciv/
   then
     echo "Setting up database.lua failed" >&2
     exit 1
