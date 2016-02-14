@@ -169,12 +169,12 @@ echo -n "$GAMEID" > $WDH/id.txt
 
 if test "x$RULESET" != "x" && test "x$RULESET" != "xdefault"
 then
-  TOPIC="$SERVERDESC / $RULESET (Game \#$GAMEID)"
+  TOPIC="$SERVERDESC / $RULESET (Game #$GAMEID)"
 elif test "x$SAVEGAME" != "x"
 then
-  TOPIC="$SERVERDESC \"$(basename $SAVEGAME | sed 's/\.sav.*//')\" (Game \#$GAMEID)"
+  TOPIC="$SERVERDESC \"$(basename $SAVEGAME | sed 's/\.sav.*//')\" (Game #$GAMEID)"
 else
-  TOPIC="$SERVERDESC (Game \#$GAMEID)"
+  TOPIC="$SERVERDESC (Game #$GAMEID)"
 fi
 
 GAMEDIR="g${GAMEID}_p$$"
