@@ -186,7 +186,7 @@ then
 fi
 
 if test "x$3" = "xon" ; then
-  META_PARAM="-m"
+  META_PARAM="-k"
 else
   META_PARAM=""
 fi
