@@ -1,7 +1,7 @@
 #!/bin/bash
 
-export FILTEREDTYPES=".png .svg .ogg .ttf .spec .tilespec .jpg .po ChangeLog setup_auth_server.sh"
-export FILTEREDDIRS="client themes doc graphics"
+export FILTEREDTYPES=".png .svg .ogg .ttf .spec .tilespec .jpg .po .git ChangeLog setup_auth_server.sh"
+export FILTEREDDIRS="client themes doc graphics .git"
 
 # $1 - Version
 # $2 - Patch
