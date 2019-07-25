@@ -156,6 +156,12 @@ if test "x$3" != "x" && test "x$3" != "xon" && test "x$3" != "xoff" ; then
   exit 1
 fi
 
+if test "x$IDENTITY" = "x" ; then
+  IDENT_PARAM=""
+else
+  IDENT_PARAM="-i $IDENTITY"
+fi
+
 sleep $RAND_WAIT
 
 if ! test -f $WDH/id.txt ; then
@@ -220,7 +226,7 @@ ulimit -c 50000
     echo "connectmsg $(cat $MAINDIR/rulesets/$VERSION/$RULESET.msg)"
   fi
   echo -n
-) | $SERDIR/fcser -e -q 300 -l fc.log -a -D fc_auth.conf -A none $SAVEGAME_PARAM $RANK_PARAM $META_PARAM $PORT_PARAM -S $GAMEID $EXTRA_CONFIG 2>stderr.log >stdout.log
+) | $SERDIR/fcser -e -q 300 -l fc.log -a -D fc_auth.conf -A none $SAVEGAME_PARAM $RANK_PARAM $META_PARAM $PORT_PARAM $IDENT_PARAM -S $GAMEID $EXTRA_CONFIG 2>stderr.log >stdout.log
 
 cd $MAINDIR
 

@@ -66,6 +66,7 @@ else
   echo "SERVERDESC=\"\"" >> config/setup
   echo "#WAIT_RAND_MAX=10" >> config/setup
   echo "#CONST_WAIT=5" >> config/setup
+  echo "#IDENTITY=\"\"" >> config/setup
 
   if ! chown ":$1" config/setup ||
      ! chmod g+r config/setup
