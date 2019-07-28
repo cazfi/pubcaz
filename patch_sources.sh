@@ -108,7 +108,7 @@ rm -Rf "patched/$TGTVERSION"
    touch patched/$TGTVERSION/ChangeLog
  )
 
-for patch in $(ls -1 patches/$TGTVERSION/*.patch 2>1 | sort )
+for patch in $(ls -1 patches/$TGTVERSION/*.patch 2>/dev/null | sort )
 do
   if ! apply_patch "$TGTVERSION" "$patch"
   then
