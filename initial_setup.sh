@@ -48,6 +48,8 @@ if test -f config/fc_auth.conf ; then
 else
   echo "[fcdb]" > config/fc_auth.conf
   echo "backend=\"sqlite\"" >> config/fc_auth.conf
+  echo "; Remember also to create and initialize the actual" >> config/fc_auth.conf
+  echo "; database file auth.sqlite. See freeciv's README.fcdb." >> config/fc_auth.conf
   echo "database=\"$(pwd)/workdirs/auth.sqlite\"" >> config/fc_auth.conf
 
   if ! chown ":$1" config/fc_auth.conf ||
