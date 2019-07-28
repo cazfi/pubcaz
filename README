@@ -90,6 +90,7 @@ CONST_WAIT      This is constant part of the server start delay. If you setup se
                 don't need WAIT_RAND_MAX at all, but can have CONST_WAIT in just seconds.
 IDENTITY        Server identity (hostname) at the metaserver. Usable when you have multiple
                 interfaces or network names
+HOMEPAGE        Server homepage URL to provide more information about the setup
 
 Example contents:
 
@@ -97,6 +98,7 @@ SERVERDESC="Cazfi's server"
 WAIT_RAND_MAX=10
 CONST_WAIT=5
 IDENTITY="test.cazfi.net"
+HOMEPAGE="www.cazfi.net/freeciv/servers.html"
 
 
 Running in the background from a cron job

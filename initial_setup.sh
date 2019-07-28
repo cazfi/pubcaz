@@ -64,6 +64,7 @@ else
   echo "# Template setup, please edit to suit you installation" > config/setup
   echo "" >> config/setup
   echo "SERVERDESC=\"\"" >> config/setup
+  echo "#HOMEPAGE=\"\"" >> config/setup
   echo "#WAIT_RAND_MAX=10" >> config/setup
   echo "#CONST_WAIT=5" >> config/setup
   echo "#IDENTITY=\"\"" >> config/setup
