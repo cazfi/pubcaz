@@ -39,7 +39,7 @@ BUILDDIR=$(cd "builds/$TGTVERSION" ; pwd)
 
 
 export CFLAGS="-DNDEBUG $CFLAGS"
-CONFOPTIONS="--enable-fcdb=sqlite3 --without-readline --disable-nls --disable-client --without-ggz-dir --disable-fcmp --disable-freeciv-manual --disable-ruledit $3"
+CONFOPTIONS="--enable-fcdb=sqlite3 --without-readline --disable-nls --disable-client --disable-fcmp --disable-freeciv-manual --disable-ruledit $3"
 
 (
   cd "$BUILDDIR"
