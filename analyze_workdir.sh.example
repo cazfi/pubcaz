@@ -21,6 +21,6 @@ ls -1 $1/*-final.sav.bz2 $1/*-quitidle.sav.bz2 |
     echo "Non-empty stderr.log"
   fi
   echo
-  echo "Listing of the workdir:" 
+  echo "Listing of the workdir:"
   ls "$1"
 ) | mail -s "Game $4/$3 finished" $EMAIL

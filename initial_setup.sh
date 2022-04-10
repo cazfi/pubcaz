@@ -76,7 +76,7 @@ else
   then
     echo "Failed to set owner group setup for config/setup" >&2
     exit 1
-  fi    
+  fi
 fi
 
 echo "Initial setup complete."
