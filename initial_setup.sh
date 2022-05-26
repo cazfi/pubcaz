@@ -1,6 +1,6 @@
 #!/bin/bash
 
-if test "x$1" = "x" || test "x$1" = "x-h" || test "x$1" = "x--help" ; then
+if test "$1" = "" || test "$1" = "-h" || test "$1" = "--help" ; then
   echo "Usage: $(basename "$0") <freeciv group>"
   exit 0
 fi

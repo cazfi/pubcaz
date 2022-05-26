@@ -2,7 +2,7 @@
 
 cd $(dirname $0)
 
-if test "x$1" = "x-h" || test "x$1" = "x--help" || test "x$1" = "x" ; then
+if test "$1" = "-h" || test "$1" = "--help" || test "$1" = "" ; then
   echo "Usage: $0 <server version> [port] [ruleset] [extra config] [scenario]"
   exit 0
 fi
@@ -12,7 +12,7 @@ export LANG
 FREECIV_LOCAL_ENCODING="UTF-8"
 export FREECIV_LOCAL_ENCODING
 
-if test "x$2" = "x" ; then
+if test "$2" = "" ; then
   PORT=5556
 else
   PORT="$2"

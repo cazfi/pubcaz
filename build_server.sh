@@ -1,6 +1,6 @@
 #!/bin/bash
 
-if test "x$1" = "x-h" || test "x$1" = "x--help" ; then
+if test "$1" = "-h" || test "$1" = "--help" ; then
   echo "Usage: $(basename $0) <srcver> [tgtver] [configure options]"
   exit
 fi
@@ -8,19 +8,19 @@ fi
 SRCVERSION="$1"
 TGTVERSION="$2"
 
-if test "x$MAKE" = "x" ; then
-    if which gmake > /dev/null ; then
-        MAKE=gmake
-    else
-        MAKE=make
-    fi
+if test "$MAKE" = "" ; then
+  if which gmake > /dev/null ; then
+    MAKE=gmake
+  else
+    MAKE=make
+  fi
 fi
 
-if test "x$TGTVERSION" = "x" ; then
+if test "$TGTVERSION" = "" ; then
   TGTVERSION="$SRCVERSION"
 fi
 
-if [ "x$SRCVERSION" = "x" ] || ! [ -d "patched/$SRCVERSION" ]
+if [ "$SRCVERSION" = "" ] || ! [ -d "patched/$SRCVERSION" ]
 then
   echo "No patched sources for \"$SRCVERSION\" available" >&2
   exit 1

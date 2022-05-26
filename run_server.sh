@@ -31,7 +31,7 @@ MAINDIR=$(cd $(dirname $0) ; pwd)
 
 cd $MAINDIR
 
-if test "x$1" = "x-h" || test "x$1" = "x--help" || test "x$1" = "x" ; then
+if test "$1" = "-h" || test "$1" = "--help" || test "$1" = "" ; then
   echo "Usage: $(basename $0) <server version> [port] [metaserver info on/off=off] [ruleset] [extra config] [savegame]"
   exit 0
 fi
@@ -45,7 +45,7 @@ fi
 
 declare -i RAND_WAIT
 
-if test "x$FCTEST" != "x" ; then
+if test "$FCTEST" != "" ; then
   WDH="testruns"
   RAND_WAIT=0
 else
@@ -53,16 +53,16 @@ else
 
   # Randomized wait so multiple servers do not lauch simultaneously
   # Set WAIT_RAND_MAX and CONST_WAIT in config/setup
-  if test "x$WAIT_RAND_MAX" = "x" ; then
+  if test "$WAIT_RAND_MAX" = "" ; then
     WAIT_RAND_MAX=40
   fi
   RAND_WAIT=${RANDOM}%${WAIT_RAND_MAX}
-  if test "x$CONST_WAIT" != "x" ; then
+  if test "$CONST_WAIT" != "" ; then
     RAND_WAIT=${RAND_WAIT}+${CONST_WAIT}
   fi
 fi
 
-if ! test -d $WDH || ! test -w $WDH ; then
+if ! test -d "$WDH" || ! test -w "$WDH" ; then
   echo "There's no directory \"$WDH\" with write permissions" >&2
   exit 1
 fi
@@ -71,22 +71,22 @@ RUNLOG="$WDH/runlog.log"
 
 VERSION="$1"
 
-if test "x$5" != "x-" ; then
-  if test "x$5" != "x" ; then
+if test "$5" != "-" ; then
+  if test "$5" != "" ; then
     EXTRA_CONFIG="$5"
   else
     EXTRA_CONFIG="-d 3 -N"
   fi
 fi
 
-if test "x$6" != "x" ; then
+if test "$6" != "" ; then
   SAVEGAME="$6"
   SAVEGAME_PARAM="-f $6"
 else
   SAVEGAME_PARAM=""
 fi
 
-if [ "x$VERSION" = "x" ] || ! [ -d "builds/$VERSION" ]
+if [ "$VERSION" = "" ] || ! [ -d "builds/$VERSION" ]
 then
   NOSER=true
 else
@@ -97,13 +97,13 @@ else
   fi
 fi
 
-if [ "x$NOSER" = "xtrue" ]
+if [ "$NOSER" = "true" ]
 then
   echo "No server $VERSION/fcser"
   exit 1
 fi
 
-if test "x$4" = "xrand" ; then
+if test "$4" = "rand" ; then
   if ! test -f rulesets/$VERSION/rand.conf ; then
     echo "Random ruleset requested, but there is no rand.conf" >&2
     exit 1
@@ -132,7 +132,7 @@ if test "x$4" = "xrand" ; then
     echo "No ruleset $RULESET available"
     exit 1
   fi
-elif test "x$4" != "x" && test "x$4" != "xdefault" ; then
+elif test "$4" != "" && test "$4" != "default" ; then
   if ! test -f rulesets/$VERSION/$4.serv ; then
     echo "No ruleset $4 available"
     exit 1
@@ -142,7 +142,7 @@ else
   RULESET="default"
 fi
 
-if test "x$2" = "x"
+if test "$2" = ""
 then
   PORT_NAME="(default)"
   PORT_PARAM=""
@@ -151,12 +151,12 @@ else
   PORT_PARAM="-p $2"
 fi
 
-if test "x$3" != "x" && test "x$3" != "xon" && test "x$3" != "xoff" ; then
+if test "$3" != "" && test "$3" != "on" && test "$3" != "off" ; then
   echo "Illegal meta parameter \"$3\"" >&2
   exit 1
 fi
 
-if test "x$IDENTITY" = "x" ; then
+if test "$IDENTITY" = "" ; then
   IDENT_PARAM=""
 else
   IDENT_PARAM="-i $IDENTITY"
@@ -173,10 +173,10 @@ fi
 
 echo -n "$GAMEID" > $WDH/id.txt
 
-if test "x$RULESET" != "x" && test "x$RULESET" != "xdefault"
+if test "$RULESET" != "" && test "$RULESET" != "default"
 then
   TOPIC="$SERVERDESC / $RULESET (Game #$GAMEID)"
-elif test "x$SAVEGAME" != "x"
+elif test "$SAVEGAME" != ""
 then
   TOPIC="$SERVERDESC \"$(basename $SAVEGAME | sed 's/\.sav.*//')\" (Game #$GAMEID)"
 else
@@ -191,7 +191,7 @@ then
   exit 1
 fi
 
-if test "x$3" = "xon" ; then
+if test "$3" = "on" ; then
   META_PARAM="-k"
 else
   META_PARAM=""
@@ -219,11 +219,11 @@ echo "$SERCMDLINE" > cmdline.txt
 ulimit -c 50000
 (
   echo "metamessage $TOPIC"
-  if test "x$HOMEPAGE" != "x" ; then
+  if test "$HOMEPAGE" != "" ; then
      echo "metapatches See $HOMEPAGE"
   fi
   echo "set scorelog enabled"
-  if test "x$RULESET" != "xdefault" ; then
+  if test "$RULESET" != "default" ; then
     echo "read $MAINDIR/rulesets/$VERSION/$RULESET.serv"
   fi
   if test -e $MAINDIR/rulesets/$VERSION/$RULESET.msg ; then

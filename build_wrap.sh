@@ -1,6 +1,6 @@
 #!/bin/bash
 
-if test "x$3" = "x" ; then
+if test "$3" = "" ; then
   echo "Usage: <src> <base version> <label>"
   exit 1
 fi

@@ -32,10 +32,10 @@ copy_file() {
 
 pass_filter() {
 
-  case "x$(basename $1)" in
+  case "$(basename $1)" in
 
     # Every Makefile.am must pass
-    xMakefile.am)
+    Makefile.am)
       return 0 ;;
 
     # Files that configure uses as input must pass
@@ -65,7 +65,7 @@ pass_filter() {
   return 0
 }
 
-if test "x$1" = "x-h" || test "x$1" = "x--help" || test "x$1" = "x" ; then
+if test "$1" = "-h" || test "$1" = "--help" || test "$1" = "" ; then
   echo "$(basename $0) <source version> [target version number]"
   exit 1
 fi
@@ -73,17 +73,17 @@ fi
 export SRCVERSION="$1"
 export TGTVERSION="$2"
 
-if test "x$TGTVERSION" = "x" ; then
+if test "$TGTVERSION" = "" ; then
   TGTVERSION="$SRCVERSION"
 fi
 
-if ! [ -d "src/$SRCVERSION" ] || [ "x$SRCVERSION" = "x" ]
+if ! [ -d "src/$SRCVERSION" ] || [ "$SRCVERSION" = "" ]
 then
   echo "No version \"$SRCVERSION\" sources available as \"src/$SRCVERSION\"" >&2
   exit 1
 fi
 
-if ! [ -d "patches/$TGTVERSION" ] || [ "x$TGTVERSION" = "x" ]
+if ! [ -d "patches/$TGTVERSION" ] || [ "$TGTVERSION" = "" ]
 then
   echo "No version \"$TGTVERSION\" patches available in \"patches/$TGTVERSION\"" >&2
   exit 1
