@@ -212,6 +212,10 @@ cd "$WORKDIR"
 
 export FREECIV_DATA_PATH="$MAINDIR/rulesets/$VERSION"
 
+SERCMDLINE="$SERDIR/fcser -e -q 300 -l fc.log -a -D fc_auth.conf -A none $SAVEGAME_PARAM $RANK_PARAM $META_PARAM $PORT_PARAM $IDENT_PARAM -S $GAMEID $EXTRA_CONFIG"
+
+echo "$SERCMDLINE" > cmdline.txt
+
 ulimit -c 50000
 (
   echo "metamessage $TOPIC"
@@ -226,7 +230,7 @@ ulimit -c 50000
     echo "connectmsg $(cat $MAINDIR/rulesets/$VERSION/$RULESET.msg)"
   fi
   echo -n
-) | $SERDIR/fcser -e -q 300 -l fc.log -a -D fc_auth.conf -A none $SAVEGAME_PARAM $RANK_PARAM $META_PARAM $PORT_PARAM $IDENT_PARAM -S $GAMEID $EXTRA_CONFIG 2>stderr.log >stdout.log
+) | $SERCMDLINE 2>stderr.log >stdout.log
 
 cd $MAINDIR
 
