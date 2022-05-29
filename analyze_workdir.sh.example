@@ -8,7 +8,7 @@ TGT_DIR="$HOME/public_html/games/$4"
 
 mkdir -p $TGT_DIR
 
-ls -1 $1/*-final.sav.bz2 $1/*-quitidle.sav.bz2 |
+ls -1 $1/*-final.sav.* $1/*-quitidle.sav.* |
     (while read FILE; do cp $FILE $TGT_DIR/ ; done )
 
 (
