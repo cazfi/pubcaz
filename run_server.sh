@@ -193,6 +193,9 @@ fi
 
 if test "$3" = "on" ; then
   META_PARAM="-k"
+  if test "$METASERVER" != "" ; then
+    META_PARAM="$META_PARAM -M $METASERVER"
+  fi
 else
   META_PARAM=""
 fi

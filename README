@@ -91,6 +91,8 @@ CONST_WAIT      This is constant part of the server start delay. If you setup se
 IDENTITY        Server identity (hostname) at the metaserver. Usable when you have multiple
                 interfaces or network names
 HOMEPAGE        Server homepage URL to provide more information about the setup
+METASERVER      Custom Metaserver URL. If not set, or empty, default metaserver will
+                be used.
 
 Example contents:
 
