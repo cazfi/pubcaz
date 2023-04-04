@@ -48,7 +48,7 @@ CONFOPTIONS="--enable-fcdb=sqlite3 --without-readline --disable-nls --disable-cl
 
   export MAIN_VERSION=$(. $SRCDIR/fc_version && echo "$MAIN_VERSION")
 
-  if "$MAIN_VERSION" = "" ; then
+  if test "$MAIN_VERSION" = "" ; then
     # MAIN_VERSION added in freeciv-3.1, so this seems like freeciv-3.0 or earlier
     # And those did not pass parameters to generate_packets.py
     GEN_PACKETS_PARAMS=""
