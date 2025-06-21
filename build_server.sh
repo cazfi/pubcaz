@@ -46,26 +46,28 @@ CONFOPTIONS="--enable-fcdb=sqlite3 --without-readline --disable-nls --disable-cl
 
   export LDFLAGS="-rdynamic"
 
-  export MAIN_VERSION=$(. $SRCDIR/fc_version && echo "$MAIN_VERSION")
+  export MAIN_VERSION="$(. "${SRCDIR}/fc_version" && echo "${MAIN_VERSION}")"
 
-  if test "$MAIN_VERSION" = "" ; then
+  if test "${MAIN_VERSION}" = "" ; then
     # MAIN_VERSION added in freeciv-3.1, so this seems like freeciv-3.0 or earlier
     # And those did not pass parameters to generate_packets.py
     GEN_PACKETS_PARAMS=""
-  else
+  elif test "${MAIN_VERSION}" = "3.1" ; then
     GEN_PACKETS_PARAMS="packets_gen.h packets_gen.c ../client/packhand_gen.h ../client/packhand_gen.c ../server/hand_gen.h ../server/hand_gen.c"
+  else
+    GEN_PACKETS_PARAMS="networking/packets.def --common-h packets_gen.h --common-c packets_gen.c --client-h ../client/packhand_gen.h --client-c ../client/packhand_gen.c --server-h ../server/hand_gen.h --server-c ../server/hand_gen.c"
   fi
 
-  if ! $SRCDIR/autogen.sh --sysconfdir=$(pwd)/etc --disable-client $CONFOPTIONS ||
-     ! $MAKE -C gen_headers  ||
-     ! ( cd $SRCDIR/common && ./generate_packets.py $GEN_PACKETS_PARAMS ) ||
-     ! ( ! test -d dependencies || $MAKE -C dependencies ) ||
-     ! $MAKE -C utility      ||
-     ! $MAKE -C common       ||
-     ! $MAKE -C ai           ||
-     ! $MAKE -C server
+  if ! "${SRCDIR}/autogen.sh" --sysconfdir=$(pwd)/etc --disable-client ${CONFOPTIONS} ||
+     ! ${MAKE} -C gen_headers  ||
+     ! ( cd "${SRCDIR}/common" && ./generate_packets.py ${GEN_PACKETS_PARAMS} ) ||
+     ! ( ! test -d dependencies || ${MAKE} -C dependencies ) ||
+     ! ${MAKE} -C utility      ||
+     ! ${MAKE} -C common       ||
+     ! ${MAKE} -C ai           ||
+     ! ${MAKE} -C server
   then
-    echo "Server $TGTVERSION build failed" >&2
+    echo "Server ${TGTVERSION} build failed" >&2
     exit 1
   fi
 
