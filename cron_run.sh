@@ -20,14 +20,15 @@ fi
 
 umask 0002
 
-if test -f servers.stop || test -f portflags/server.$PORT || test -f cron.disabled ; then
+if test -f servers.stop || test -f "portflags/server.${PORT}" || test -f cron.disabled ; then
   exit 0
 fi
 
-touch portflags/server.$PORT
+mkdir -p portflags
+touch "portflags/server.${PORT}"
 
 if ! ./run_server.sh "$1" "$PORT" on "$3" "$4" "$5" >/dev/null; then
   echo "Freeciv server run failed (\"$1\" \"$PORT\")" >&2
 fi
 
-rm portflags/server.$PORT
+rm "portflags/server.${PORT}"
