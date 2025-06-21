@@ -8,8 +8,8 @@ fi
 SRCVERSION="$1"
 TGTVERSION="$2"
 
-if test "$MAKE" = "" ; then
-  if which gmake > /dev/null ; then
+if test "${MAKE}" = "" ; then
+  if command -v gmake > /dev/null ; then
     MAKE=gmake
   else
     MAKE=make
