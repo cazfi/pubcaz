@@ -1,4 +1,4 @@
-#/bin/bash
+#/usr/bin/env bash
 
 # ./analyze_workdir.sh, if present, gets executed after the game has finished
 

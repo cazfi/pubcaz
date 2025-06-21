@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 export FILTEREDTYPES=".png .svg .ogg .ttf .spec .tilespec .jpg .po .git ChangeLog setup_auth_server.sh .gitignore"
 export FILTEREDDIRS="client themes doc graphics .git windows"

@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 if test "$1" = "" || test "$1" = "-h" || test "$1" = "--help" ; then
   echo "Usage: $(basename "$0") <freeciv group>"

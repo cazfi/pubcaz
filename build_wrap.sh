@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 if test "$3" = "" ; then
   echo "Usage: <src> <base version> <label>"
