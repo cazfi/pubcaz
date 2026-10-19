@@ -58,6 +58,10 @@ CONFOPTIONS="--enable-fcdb=sqlite3 --without-readline --disable-nls --disable-cl
     GEN_PACKETS_PARAMS="networking/packets.def --common-h packets_gen.h --common-c packets_gen.c --client-h ../client/packhand_gen.h --client-c ../client/packhand_gen.c --server-h ../server/hand_gen.h --server-c ../server/hand_gen.c"
   fi
 
+  if test "${MAIN_VERSION}" != "3.2" && test "${MAIN_VERSION}" != "3.1" ; then
+    CONFOPTIONS="--enable-ack-legacy ${CONFOPTIONS}"
+  fi
+
   if ! "${SRCDIR}/autogen.sh" --sysconfdir=$(pwd)/etc --disable-client ${CONFOPTIONS} ||
      ! ${MAKE} -C gen_headers  ||
      ! ( cd "${SRCDIR}/common" && ./generate_packets.py ${GEN_PACKETS_PARAMS} ) ||
